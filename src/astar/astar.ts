@@ -1,6 +1,6 @@
 import { MinHeap } from './heap';
 
-import type { Coord } from '@/data/com/vertex';
+import type { Coord } from '@/com/vertex';
 
 function dist(source: Coord, target: Coord): number {
     const rise = target[1] - source[1];
