@@ -1,19 +1,16 @@
-import type { Coord, Color } from '@/com/vertex';
+import type { Coord } from '@/com/vertex';
 
-export interface ClosureOptions {
-	globalOffset: Coord;
+export interface ProductOptions {
     coordinateOffset: Coord;
     canvasSize: Coord;
     renderingFloor: number;
 }
-export interface ClosureConfig {
+export interface ProductConfig {
     zLayer: number;
     floor?: (number | (() => number));
     tag?: string;
     static?: boolean;
     repeating?: number;
 }
-export type Closure = (ctx: CanvasRenderingContext2D, options: ClosureOptions) => void;
-
-export type LineData = [Coord, Coord, Color, number, ClosureConfig];
-export type PointData = [Coord, number, Color, ClosureConfig];
+export type Product = (ctx: CanvasRenderingContext2D, options: ProductOptions) => any;
+export type PseudoProduct = Product[];
