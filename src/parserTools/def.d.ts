@@ -1,7 +1,7 @@
-import type { Coord } from '@/com/vertex'
-import { Room } from '@/room/room'
+import type { Coord } from '@/com/vertex';
+import { Room } from '@/room/room';
 
 export interface GPSMetadata {
-	gpsOffset: Coord
-	roomData: Room[]
+    gpsOffset: Coord;
+    roomData: Room[];
 }

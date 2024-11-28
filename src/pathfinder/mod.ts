@@ -1,4 +1,6 @@
 import { aStar } from '@/astar/astar';
+import { blankPath, generatePath } from '@/parserTools/pathTools';
+import { Polygon } from '@/polygon/polygon';
 
 import type { PathData } from '@/parserTools/pathTools';
 import type { LineData, PointData } from './def';
@@ -14,7 +16,12 @@ export function generatePathObjects(
 
     const lines: LineData[] = [];
     const points: PointData[] = [
-        [nodes[target], 5, [23, 224, 255, 1], { zLayer: 4, tag: 'pathfind-obj' }],
+        [
+            nodes[target],
+            5,
+            [23, 224, 255, 1],
+            { zLayer: 4, tag: 'pathfind-obj' },
+        ],
     ];
 
     for (let i = 0; i < pathFound.length - 1; i++) {
@@ -34,4 +41,13 @@ export function generatePathObjects(
     }
 
     return [lines, points];
+}
+
+export class PathFinderController {
+    public pathData: PathData = blankPath;
+    public polygonData: Polygon[] = [];
+
+    generatePath(polyData: Polygon[]) {
+        generatePath(this.polygonData);
+    }
 }

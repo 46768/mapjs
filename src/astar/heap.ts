@@ -13,7 +13,10 @@ export class MinHeap<T> {
             const childVal: T = data[childIdx];
             const parentVal: T = data[parentIdx];
             if (this.cmpFn(childVal, parentVal) < 0) {
-                [data[childIdx], data[parentIdx]] = [data[parentIdx], data[childIdx]];
+                [data[childIdx], data[parentIdx]] = [
+                    data[parentIdx],
+                    data[childIdx],
+                ];
                 childIdx = parentIdx;
             } else {
                 break;
@@ -35,18 +38,31 @@ export class MinHeap<T> {
             if (childLeft >= dataLast) break;
             const rootVal: T = data[root];
             const childLeftVal: T = data[childLeft];
-            const childRightVal: T = childRight < dataLast ? data[childRight] : this.getBlank;
+            const childRightVal: T =
+                childRight < dataLast ? data[childRight] : this.getBlank;
 
-            if (this.cmpFn(rootVal, childLeftVal) > 0 || this.cmpFn(rootVal, childRightVal)) {
+            if (
+                this.cmpFn(rootVal, childLeftVal) > 0 ||
+                this.cmpFn(rootVal, childRightVal)
+            ) {
                 if (data.length === 2) {
-                    [data[root], data[childLeft]] = [data[childLeft], data[root]];
+                    [data[root], data[childLeft]] = [
+                        data[childLeft],
+                        data[root],
+                    ];
                     break;
                 }
                 if (this.cmpFn(childLeftVal, childRightVal) > 0) {
-                    [data[root], data[childRight]] = [data[childRight], data[root]];
+                    [data[root], data[childRight]] = [
+                        data[childRight],
+                        data[root],
+                    ];
                     root = childRight;
                 } else {
-                    [data[root], data[childLeft]] = [data[childLeft], data[root]];
+                    [data[root], data[childLeft]] = [
+                        data[childLeft],
+                        data[root],
+                    ];
                     root = childLeft;
                 }
             } else break;

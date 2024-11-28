@@ -49,9 +49,18 @@ export function getTouchingRooms(roomArray: Room[]): [Room, Room][] {
             for (let j = i + 1; j < roomIDArray.length; j++) {
                 const id1: string = roomIDArray[i];
                 const id2: string = roomIDArray[j];
-                if (!validatePolygonTouching(roomRecord[id1].polygon, roomRecord[id2].polygon))
+                if (
+                    !validatePolygonTouching(
+                        roomRecord[id1].polygon,
+                        roomRecord[id2].polygon
+                    )
+                )
                     continue;
-                if (Math.abs(roomRecord[id1].floor - roomRecord[id2].floor) > 0.5) continue;
+                if (
+                    Math.abs(roomRecord[id1].floor - roomRecord[id2].floor) >
+                    0.5
+                )
+                    continue;
                 if (!Object.prototype.hasOwnProperty.call(checked, id1))
                     checked[id1] = new Set<string>();
                 if (!Object.prototype.hasOwnProperty.call(checked, id2))

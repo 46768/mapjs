@@ -49,15 +49,27 @@ test('polygon edge extraction', () => {
 });
 
 test('polygon touching validation', () => {
-    const testResult: boolean = polygonTools.validatePolygonTouching(testPolygon, testPolygon2);
-    const testResult2: boolean = polygonTools.validatePolygonTouching(testPolygon, testPolygon3);
+    const testResult: boolean = polygonTools.validatePolygonTouching(
+        testPolygon,
+        testPolygon2
+    );
+    const testResult2: boolean = polygonTools.validatePolygonTouching(
+        testPolygon,
+        testPolygon3
+    );
     expect(testResult).toBe(true);
     expect(testResult2).toBe(false);
 });
 
 test('room touch extraction', () => {
-    const testResult: [Room, Room][] = roomTools.getTouchingRooms([testRoom, testRoom2]);
-    const testResult2: [Room, Room][] = roomTools.getTouchingRooms([testRoom, testRoom3]);
+    const testResult: [Room, Room][] = roomTools.getTouchingRooms([
+        testRoom,
+        testRoom2,
+    ]);
+    const testResult2: [Room, Room][] = roomTools.getTouchingRooms([
+        testRoom,
+        testRoom3,
+    ]);
     const testResult3: [Room, Room][] = roomTools.getTouchingRooms([
         testRoom,
         testRoom2,

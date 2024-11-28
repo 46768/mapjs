@@ -61,7 +61,8 @@ export class Polygon {
     }
 
     isInBoundingBox(x: number, y: number): boolean {
-        const [[lowerX, upperX], [lowerY, upperY]]: [Coord, Coord] = this.boundingBox;
+        const [[lowerX, upperX], [lowerY, upperY]]: [Coord, Coord] =
+            this.boundingBox;
         if (lowerX > x === upperX > x) return false;
         if (lowerY > y === upperY > y) return false;
         return true;
@@ -87,7 +88,8 @@ export class Polygon {
             const slope = (yPrev - yVert) / (xPrev - xVert);
             //y is between yi and yj if its not larger or smaller than both of them
             const isIntersecting =
-                isPointLeftToLine(x, y, slope, yVert - slope * xVert) && yVert > y !== yPrev > y;
+                isPointLeftToLine(x, y, slope, yVert - slope * xVert) &&
+                yVert > y !== yPrev > y;
             if (isIntersecting) isPointIn = !isPointIn;
             prevIdx = vertIdx;
         }

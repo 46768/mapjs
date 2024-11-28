@@ -2,11 +2,7 @@ import { Room } from '@/room/room';
 import { getTouchingRooms } from './roomTools';
 import { getPolygonCommonEdge, getPolygonCenter } from './polygonTools';
 import { coordToString, isCoordEqual } from '@/com/vertex';
-import {
-    validateLineSegmentCoincidentation,
-    getLineSegmentMidPoint,
-    getOverlappingLineSegment,
-} from '@/com/line';
+import { getLineSegmentMidPoint, getOverlappingLineSegment } from '@/com/line';
 
 import type { Coord } from '@/com/vertex';
 import type { LineSegment } from '@/com/line';
@@ -18,7 +14,9 @@ export type PathData = [Nodes, Neighbors];
 export const blankPath: PathData = [[], []];
 
 function findCoordInNodes(nodes: Nodes, coord: Coord): number {
-    return nodes.findIndex((element) => coordToString(coord) === coordToString(element));
+    return nodes.findIndex(
+        (element) => coordToString(coord) === coordToString(element)
+    );
 }
 
 export function generatePath(roomData: Room[]): PathData {
@@ -45,31 +43,48 @@ export function generatePath(roomData: Room[]): PathData {
             neighbors.push([]);
         }
 
-        commonEdges.push([getPolygonCommonEdge(room1.polygon, room2.polygon), room1, room2]);
+        commonEdges.push([
+            getPolygonCommonEdge(room1.polygon, room2.polygon),
+            room1,
+            room2,
+        ]);
     }
 
     for (const [segmentData, room1, room2] of commonEdges) {
         const room1CCIdx: number =
-            roomNodeSet.get(coordToString(getPolygonCenter(room1.polygon))) ?? -1;
+            roomNodeSet.get(coordToString(getPolygonCenter(room1.polygon))) ??
+            -1;
         const room2CCIdx: number =
-            roomNodeSet.get(coordToString(getPolygonCenter(room2.polygon))) ?? -1;
+            roomNodeSet.get(coordToString(getPolygonCenter(room2.polygon))) ??
+            -1;
         for (const [segment1, segment2] of segmentData) {
-            const intersectingSegment: LineSegment = getOverlappingLineSegment(segment1, segment2);
+            const intersectingSegment: LineSegment = getOverlappingLineSegment(
+                segment1,
+                segment2
+            );
 
             // no reason to generate a node for line segment with 0 length
             if (isCoordEqual(intersectingSegment[1], intersectingSegment[2])) {
                 continue;
             }
-            const interSegmentMid: Coord = getLineSegmentMidPoint(intersectingSegment);
+            const interSegmentMid: Coord =
+                getLineSegmentMidPoint(intersectingSegment);
             if (findCoordInNodes(nodes, interSegmentMid) !== -1) continue;
 
             const interSegmentMidIdx = nodes.push(interSegmentMid) - 1;
             neighbors.push([room1CCIdx, room2CCIdx]);
-            for (const connectingNode of [...neighbors[room1CCIdx], ...neighbors[room2CCIdx]]) {
+            for (const connectingNode of [
+                ...neighbors[room1CCIdx],
+                ...neighbors[room2CCIdx],
+            ]) {
                 // add node to each inter room nodes of both rooms
-                if (neighbors[connectingNode].indexOf(interSegmentMidIdx) === -1)
+                if (
+                    neighbors[connectingNode].indexOf(interSegmentMidIdx) === -1
+                )
                     neighbors[connectingNode].push(interSegmentMidIdx);
-                if (neighbors[interSegmentMidIdx].indexOf(connectingNode) === -1)
+                if (
+                    neighbors[interSegmentMidIdx].indexOf(connectingNode) === -1
+                )
                     neighbors[interSegmentMidIdx].push(connectingNode);
             }
 

@@ -1,6 +1,8 @@
 export type Coord = [number, number];
 export type Color = [number, number, number, number];
 
+export const nullPoint: Coord = [Infinity, Infinity];
+
 export function coordToString(coord: Coord): string {
     return `${coord[0]},,${coord[1]}`;
 }

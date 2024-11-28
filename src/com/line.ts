@@ -1,15 +1,24 @@
+import { nullPoint } from './vertex';
 import type { Coord } from './vertex';
 
 // [slope, y-intercept]
 export type Line = [number | false, number];
 
 // [Line, lowerX, upperX]
-export type LineSegment = [Line, Coord, Coord];
+export type LineSegment = [Line, number, number];
+
+export function lineFunction(line: Line, x: number): Coord {
+	return line[0] ? [x, line[0]*x + line[1]] : [x, Infinity];
+}
 
 export function validateLineSegmentCoincidentation(
-    [line1, lowerX1, upperX1]: LineSegment,
-    [line2, lowerX2, upperX2]: LineSegment
+    [line1, lower1, upper1]: LineSegment,
+    [line2, lower2, upper2]: LineSegment
 ): boolean {
+	const lowerX1: Coord = lineFunction(line1, lower1);
+	const upperX1: Coord = lineFunction(line1, upper1);
+	const lowerX2: Coord = lineFunction(line2, lower2);
+	const upperX2: Coord = lineFunction(line2, upper2);
     if (line1[0] !== line2[0]) return false;
     if (line1[1] !== line2[1]) return false;
     for (const vertex1 of [lowerX1[0], upperX1[0]]) {
@@ -27,7 +36,13 @@ export function validateLineSegmentCoincidentation(
     return false;
 }
 
-export function getLineSegmentMidPoint([line, lowerX, upperX]: LineSegment): Coord {
+export function getLineSegmentMidPoint([
+    line,
+    lower,
+    upper,
+]: LineSegment): Coord {
+	const lowerX: Coord = lineFunction(line, lower);
+	const upperX: Coord = lineFunction(line, upper);
     const interSegmentMid: Coord = [0, 0];
     if (line[0] === false) {
         interSegmentMid[0] = lowerX[0];
@@ -61,4 +76,23 @@ export function getOverlappingLineSegment(
         [...lineCoord[2]],
     ];
     return intersectingSegment;
+}
+
+export function getSegmentIntersectionPoint(segment1: LineSegment, segment2: LineSegment): Coord {
+	if (segment1[0][0] === segment2[0][0]) return nullPoint;
+	if (segment1[0][0] === false) {
+		const xShift: number = segment1[0][1];
+		if (xShift >= segment2[1] && xShift <= segment2[2]) return lineFunction(segment1[0]);
+		return nullPoint;
+	}
+	return [0, 0];
+}
+
+export function lineToString(line: Line): string {
+    return line.join(',');
+}
+
+export function stringToLine(lineStr: string): Line {
+    const [slope, base] = lineStr.split(',');
+    return [slope === 'false' ? false : parseFloat(slope), parseFloat(base)];
 }

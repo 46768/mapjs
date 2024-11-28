@@ -30,7 +30,12 @@ function queueCmp(left: [number, number], right: [number, number]) {
     return left[1] - right[1];
 }
 
-export function aStar(nodes: Coord[], nebors: number[][], source: number, target: number) {
+export function aStar(
+    nodes: Coord[],
+    nebors: number[][],
+    source: number,
+    target: number
+) {
     const nodeCnt: number = nodes.length;
     const sourceNode: Coord = nodes[source];
     const targetNode: Coord = nodes[target];
@@ -39,7 +44,10 @@ export function aStar(nodes: Coord[], nebors: number[][], source: number, target
     const gCost: number[] = new Array(nodeCnt).fill(999999);
     const fCost: number[] = new Array(nodeCnt).fill(999999);
 
-    const queue: MinHeap<[number, number]> = new MinHeap<[number, number]>(queueCmp, [-1, 999999]);
+    const queue: MinHeap<[number, number]> = new MinHeap<[number, number]>(
+        queueCmp,
+        [-1, 999999]
+    );
     const queueSet: Set<number> = new Set<number>();
 
     path[source] = source;
