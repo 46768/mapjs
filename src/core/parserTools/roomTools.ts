@@ -1,8 +1,8 @@
-import { Polygon } from '@/polygon/polygon';
-import { Room } from '@/room/room';
+import { Polygon } from '@type/polygon';
+import { Room } from '@type/room';
 import { getPolygonEdges, validatePolygonTouching } from './polygonTools';
 
-import type { Line } from '@/com/line';
+import type { Line, LineSegment } from '@type/line';
 
 export function lineToString(line: Line): string {
     return line.join(',');
@@ -23,7 +23,7 @@ export function getTouchingRooms(roomArray: Room[]): [Room, Room][] {
     for (const room of roomArray) {
         const roomID: string = room.id;
         const roomPoly: Polygon = room.polygon;
-        const polyEdges: Line[] = getPolygonEdges(roomPoly);
+        const polyEdges: LineSegment[] = getPolygonEdges(roomPoly);
 
         roomRecord[roomID] = room;
         for (const edge of polyEdges) {

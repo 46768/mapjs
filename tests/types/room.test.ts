@@ -1,5 +1,5 @@
-import { Polygon } from '@/polygon/polygon';
-import { Room } from './room';
+import { Polygon } from '@type/polygon';
+import { Room } from '@type/room';
 
 const roomPoly = new Polygon(
     [

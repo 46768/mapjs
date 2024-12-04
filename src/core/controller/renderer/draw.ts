@@ -1,7 +1,7 @@
-import { Polygon } from '@/polygon/polygon';
-import { colorToCSS } from '@/utils/dataConverter';
+import { Polygon } from '@type/polygon';
+import { colorToCSS } from '@utils/dataConverter';
 
-import type { Coord, Color } from '@/com/vertex';
+import type { Coord, Color } from '@type/vertex';
 import type { Product, ProductOptions, ProductConfig } from './def';
 
 /**
@@ -43,8 +43,8 @@ function isCorrectLayer(opts: ProductOptions, config: ProductConfig) {
  * Generate a dot draw calls to the renderer
  */
 export function dotFactory(
-    radius: number,
     pos: Coord,
+    radius: number,
     col: Color,
     config: ProductConfig
 ): Product {

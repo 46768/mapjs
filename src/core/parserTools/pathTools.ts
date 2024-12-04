@@ -1,11 +1,15 @@
-import { Room } from '@/room/room';
+import { Room } from '@type/room';
 import { getTouchingRooms } from './roomTools';
 import { getPolygonCommonEdge, getPolygonCenter } from './polygonTools';
-import { coordToString, isCoordEqual } from '@/com/vertex';
-import { getLineSegmentMidPoint, getOverlappingLineSegment } from '@/com/line';
+import { coordToString, isCoordEqual } from '@type/vertex';
+import {
+    getLineSegmentMidPoint,
+    getOverlappingLineSegment,
+    lineFunction,
+} from '@type/line';
 
-import type { Coord } from '@/com/vertex';
-import type { LineSegment } from '@/com/line';
+import type { Coord } from '@type/vertex';
+import type { LineSegment } from '@type/line';
 
 export type Nodes = Coord[];
 export type Neighbors = number[][];
@@ -64,7 +68,15 @@ export function generatePath(roomData: Room[]): PathData {
             );
 
             // no reason to generate a node for line segment with 0 length
-            if (isCoordEqual(intersectingSegment[1], intersectingSegment[2])) {
+            if (
+                isCoordEqual(
+                    lineFunction(
+                        intersectingSegment[0],
+                        intersectingSegment[1]
+                    ),
+                    lineFunction(intersectingSegment[0], intersectingSegment[2])
+                )
+            ) {
                 continue;
             }
             const interSegmentMid: Coord =

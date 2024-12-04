@@ -1,7 +1,7 @@
-import { colorToCSS } from '@/utils/dataConverter';
+import { colorToCSS } from '@utils/dataConverter';
 
-import type { Product, ProductOptions } from './def';
-import type { Coord, Color } from '@/com/vertex';
+import type { Product, ProductOptions } from './renderer/def';
+import type { Coord, Color } from '@type/vertex';
 
 /**
  * Renderer for drawing map onto canvas
@@ -51,10 +51,10 @@ export class Renderer {
         ctx.clearRect(0, 0, ...size);
         ctx.fillStyle = colorToCSS(this.background);
         ctx.fillRect(0, 0, ...size);
-        for (let drawLayer of objects) {
+        for (const drawLayer of objects) {
             if (typeof drawLayer !== 'object') continue;
-            for (let objs of Object.values(drawLayer)) {
-                for (let obj of objs) {
+            for (const objs of Object.values(drawLayer)) {
+                for (const obj of objs) {
                     obj(ctx, opts);
                 }
             }
@@ -74,17 +74,17 @@ export class Renderer {
     }
 
     set offset(newOffset: Coord) {
-        this.closureOption.coordinateOffset = newOffset;
+        this.productOption.coordinateOffset = newOffset;
     }
 
     set size(newSize: Coord) {
         if (!this.context) return;
-        this.closureOption.canvasSize = newSize;
+        this.productOption.canvasSize = newSize;
         this.context.canvas.width = newSize[0];
         this.context.canvas.height = newSize[1];
     }
 
     set layer(newLayer: number) {
-        this.closureOption.renderingLayer = newLayer;
+        this.productOption.renderingLayer = newLayer;
     }
 }

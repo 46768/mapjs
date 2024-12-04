@@ -9,8 +9,11 @@
         "strict": true,
         "baseUrl": ".",
         "paths": {
-            "@/*": ["./src/*"]
+            "@/*": ["./src/*"],
+            "@type/*": ["./src/type/*"],
+            "@core/*": ["./src/core/*"],
+            "@utils/*": ["./src/utils/*"]
         }
     },
-    "include": ["src/**/*.ts"]
+    "include": ["src/**/*.ts", "tests/**/*.ts"]
 }

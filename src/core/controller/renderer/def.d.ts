@@ -1,4 +1,5 @@
-import type { Coord } from '@/com/vertex';
+import type { Coord, Color } from '@type/vertex';
+import type { Polygon } from '@type/polygon';
 
 export interface ProductOptions {
     coordinateOffset: Coord;
@@ -16,4 +17,8 @@ export type Product = (
     ctx: CanvasRenderingContext2D,
     options: ProductOptions
 ) => void;
-export type PseudoProduct = Product[];
+
+type ProductArgBase = [Color, ProductConfig];
+export type dotArg = [Coord, number, ...ProductArgBase];
+export type lineArg = [Coord, Coord, number, ...ProductArgBase];
+export type polygonArg = [Polygon, ProductConfig];

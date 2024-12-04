@@ -1,10 +1,10 @@
-import { Polygon } from '@/polygon/polygon';
-import { Room } from '@/room/room';
-import * as polygonTools from '../polygonTools';
-import * as roomTools from '../roomTools';
-import * as graphTools from '../pathTools';
+import { Polygon } from '@type/polygon';
+import { Room } from '@type/room';
+import * as polygonTools from '@core/parserTools/polygonTools';
+import * as roomTools from '@core/parserTools/roomTools';
+import * as graphTools from '@core/parserTools/pathTools';
 
-import type { Line } from '@/com/line';
+import type { LineSegment } from '@type/line';
 
 const testPolygon = new Polygon(
     [
@@ -39,12 +39,12 @@ const testRoom2 = new Room(7107, 1, testPolygon2, 'testRoom2ID');
 const testRoom3 = new Room(7109, 1, testPolygon3, 'testRoom3ID');
 
 test('polygon edge extraction', () => {
-    const edges: Line[] = polygonTools.getPolygonEdges(testPolygon);
+    const edges: LineSegment[] = polygonTools.getPolygonEdges(testPolygon);
     expect(edges).toEqual([
-        [0, 0],
-        [false, 0],
-        [0, 100],
-        [false, 100],
+		[[0, 0], 0, 100],
+        [[false, 0], 0, 0],
+        [[0, 100], 100, 0],
+        [[false, 100], 100, 100],
     ]);
 });
 

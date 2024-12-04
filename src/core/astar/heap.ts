@@ -1,4 +1,4 @@
-export class MinHeap<T> {
+export class Heap<T> {
     public data: T[] = [];
     constructor(
         public cmpFn: (cmp1: T, cmp2: T) => number,

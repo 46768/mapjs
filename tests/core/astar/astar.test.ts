@@ -1,6 +1,6 @@
-import { aStar } from './astar';
+import { aStar } from '@core/astar/astar';
 
-import type { Coord } from '@/com/vertex';
+import type { Coord } from '@type/vertex';
 
 const nodes: Coord[] = [
     [0, 0],

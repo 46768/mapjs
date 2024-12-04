@@ -1,6 +1,6 @@
-import { MinHeap } from './heap';
+import { Heap } from './heap';
 
-import type { Coord } from '@/com/vertex';
+import type { Coord } from '@type/vertex';
 
 function dist(source: Coord, target: Coord): number {
     const rise = target[1] - source[1];
@@ -44,7 +44,7 @@ export function aStar(
     const gCost: number[] = new Array(nodeCnt).fill(999999);
     const fCost: number[] = new Array(nodeCnt).fill(999999);
 
-    const queue: MinHeap<[number, number]> = new MinHeap<[number, number]>(
+    const queue: Heap<[number, number]> = new Heap<[number, number]>(
         queueCmp,
         [-1, 999999]
     );

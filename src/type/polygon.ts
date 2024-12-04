@@ -1,6 +1,6 @@
 import { isPointLeftToLine } from '@/utils/math';
 
-import type { Coord, Color } from '@/com/vertex';
+import type { Coord, Color } from './vertex';
 
 export class Polygon {
     static blank = new Polygon([[0, 0]], [0, 0, 0, 0]);
@@ -11,26 +11,25 @@ export class Polygon {
      */
     public boundingBox: [Coord, Coord];
     public highlighted: boolean = false;
-
-    _calculateBoundingBox(): [Coord, Coord] {
-        const xCoord: number[] = this.vertices.map((pos) => pos[0]);
-        const yCoord: number[] = this.vertices.map((pos) => pos[1]);
-        const lowerX: number = Math.min(...xCoord),
-            lowerY: number = Math.min(...yCoord),
-            upperX: number = Math.max(...xCoord),
-            upperY: number = Math.max(...yCoord);
-        return [
-            [lowerX, upperX],
-            [lowerY, upperY],
-        ];
-    }
-
     constructor(
         public _vertices: Coord[],
         public color: Color
     ) {
         this.boundingBox = this._calculateBoundingBox();
     }
+
+	_calculateBoundingBox(): [Coord, Coord] {
+		const xCoord: number[] = this.vertices.map((pos) => pos[0]);
+		const yCoord: number[] = this.vertices.map((pos) => pos[1]);
+		const lowerX: number = Math.min(...xCoord),
+			lowerY: number = Math.min(...yCoord),
+			upperX: number = Math.max(...xCoord),
+			upperY: number = Math.max(...yCoord);
+		return [
+			[lowerX, upperX],
+			[lowerY, upperY],
+		];
+	}
 
     get vertices(): Coord[] {
         return this._vertices;

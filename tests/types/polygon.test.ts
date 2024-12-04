@@ -1,4 +1,4 @@
-import { Polygon } from './polygon';
+import { Polygon } from '@type/polygon';
 
 const roomPoly = new Polygon(
     [
