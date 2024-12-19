@@ -1,6 +1,6 @@
-import { Room } from '@type/room';
-import { getTouchingRooms } from './roomTools';
-import { getPolygonCommonEdge, getPolygonCenter } from './polygonTools';
+import Room from '@type/Room';
+import { getTouchingRooms } from './room';
+import { getPolygonCommonEdge, getPolygonCenter } from './polygon';
 import { coordToString, isCoordEqual } from '@type/vertex';
 import {
     getLineSegmentMidPoint,

@@ -1,23 +1,10 @@
 import { aStar } from '@core/astar/astar';
-import { blankPath } from '@core/parserTools/pathTools';
-import { Polygon } from '@type/polygon';
+import { blankPath, generatePath } from '@core/lib/path';
+import { Room } from '@type/room';
+import { generatePoint, generateLine } from './pathfinder/draw';
 
-import type { Coord, Color } from '@type/vertex';
-import type { PathData } from '@core/parserTools/pathTools';
-import type { ProductConfig } from '@core/controller/renderer/def';
+import type { PathData } from '@core/lib/path';
 import type { dotArg, lineArg } from '@core/controller/renderer/def';
-
-// Config
-const pathColor: Color = [23, 224, 255, 1];
-const pathConfig: ProductConfig = { zLayer: 4, tag: 'pathfind-obj' };
-
-function generatePoint(node: Coord): dotArg {
-    return [node, 5, pathColor, pathConfig];
-}
-
-function generateLine(start: Coord, end: Coord): lineArg {
-    return [start, end, 2, pathColor, pathConfig];
-}
 
 export function generatePathObjects(
     graph: PathData,
@@ -41,5 +28,26 @@ export function generatePathObjects(
 
 export class PathFinderController {
     public pathData: PathData = blankPath;
-    public polygonData: Polygon[] = [];
+    public roomData: Room[] = [];
+
+    constructor(rooms?: Room[]) {
+        if (rooms) this.roomData = rooms;
+    }
+
+    attachRoomData(rooms: Room[]) {
+        this.roomData = rooms;
+        this.pathData = generatePath(rooms);
+    }
+
+    detachRoomData() {
+        this.roomData = [];
+    }
+
+    pathfind(start: number, end: number) {
+        return generatePathObjects(this.pathData, start, end);
+    }
+
+    getPath() {
+        return this.pathData;
+    }
 }

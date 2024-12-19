@@ -1,6 +1,6 @@
 import { colorToCSS } from '@utils/dataConverter';
 
-import type { Product, ProductOptions } from './renderer/def';
+import type { Product, ProductOptions, ProductConfig } from './renderer/def';
 import type { Coord, Color } from '@type/vertex';
 
 /**
@@ -21,8 +21,9 @@ export class Renderer {
     /**
      * Insert a product to the productBuffer with a tag if specified *default to 'untagged'
      */
-    insertObject(object: Product, drawOrder: number, tag?: string): void {
-        tag = tag ?? 'untagged';
+    insertObject(object: Product, config: ProductConfig): void {
+        const tag: string = config.tag ?? 'untagged';
+        const drawOrder: number = config.zLayer;
         if (!this.objectBuffer[drawOrder]) this.objectBuffer[drawOrder] = {};
         if (
             !Object.prototype.hasOwnProperty.call(

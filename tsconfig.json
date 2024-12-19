@@ -15,5 +15,5 @@
             "@utils/*": ["./src/utils/*"]
         }
     },
-    "include": ["src/**/*.ts", "tests/**/*.ts"]
+    "include": ["src/**/*.ts"]
 }

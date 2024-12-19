@@ -1,4 +1,4 @@
-import { Heap } from './heap';
+import Heap from './Heap';
 
 import type { Coord } from '@type/vertex';
 
@@ -30,6 +30,7 @@ function queueCmp(left: [number, number], right: [number, number]) {
     return left[1] - right[1];
 }
 
+export default class AStar {}
 export function aStar(
     nodes: Coord[],
     nebors: number[][],

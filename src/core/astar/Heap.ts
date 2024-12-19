@@ -1,4 +1,4 @@
-export class Heap<T> {
+export default class Heap<T> {
     public data: T[] = [];
     constructor(
         public cmpFn: (cmp1: T, cmp2: T) => number,
